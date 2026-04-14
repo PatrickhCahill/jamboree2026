@@ -7,7 +7,7 @@ library(lubridate)
 library(gghighlight)
 library(ggview)
 # Load dataset
-dataset <- read_parquet("renewables-dataset.parquet")
+dataset <- read_parquet("dataset/renewables-dataset.parquet")
 
 # Compute residual for given penetration
 a_s <- 0.30 # solar matches (a_s x 100)% of the average yearly demand across EU
@@ -29,10 +29,37 @@ daily_df <- dataset_residual %>%
     .groups="drop"
   )
 
-daily_with_extreme<-daily_df %>% group_by(ID,latitude,longitude,country) %>% 
+daily_with_low_extreme<-daily_df %>% group_by(ID,latitude,longitude,country) %>% 
   mutate(
-    solar_is_extreme = solar_scaled_MWh_daily <= quantile(solar_scaled_MWh_daily,0.1),
-    wind_is_extreme = wind_scaled_MWh_daily <= quantile(wind_scaled_MWh_daily,0.1),
+    solar_is_extreme = (solar_scaled_MWh_daily <= quantile(solar_scaled_MWh_daily,0.1)),
+    wind_is_extreme = (wind_scaled_MWh_daily <= quantile(wind_scaled_MWh_daily,0.1)),
+    both_extreme = solar_is_extreme & wind_is_extreme
+  ) %>% ungroup()
+
+daily_with_low_extreme[] <- lapply(daily_with_low_extreme, function(x) {
+  if (is.logical(x)) as.integer(x) else x
+})
+
+daily_with_low_extreme %>%
+  pivot_wider(names_from = date, values_from = both_extreme)  %>% 
+  select(-date)
+%>%
+  select(-date) %>%              # remove date column
+  cor(use = "pairwise.complete.obs")
+
+
+
+
+daily_with_low_extreme %>%
+  group_by(ID) %>%
+  summarise(
+    r = cor(solar_is_extreme)
+  )
+  
+daily_with_high_extreme<-daily_df %>% group_by(ID,latitude,longitude,country) %>% 
+  mutate(
+    solar_is_extreme = !(solar_scaled_MWh_daily <= quantile(solar_scaled_MWh_daily,0.9)),
+    wind_is_extreme = !(wind_scaled_MWh_daily <= quantile(wind_scaled_MWh_daily,0.9)),
     both_extreme = solar_is_extreme & wind_is_extreme
   ) %>% ungroup()
 

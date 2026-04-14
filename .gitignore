@@ -2,3 +2,5 @@ dataset/
 venv/
 dataviz/
 *png
+*csv
+*.gif
