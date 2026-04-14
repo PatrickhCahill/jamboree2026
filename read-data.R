@@ -6,6 +6,7 @@ library(dplyr)
 library(lubridate)
 library(gghighlight)
 library(ggview)
+library(gganimate)
 # Load dataset
 dataset <- read_parquet("dataset/renewables-dataset.parquet")
 
@@ -68,15 +69,31 @@ daily_extremes <- daily_with_extreme %>% group_by(ID,latitude,longitude,country)
     longest_extreme_run = max(rle(both_extreme)$lengths[rle(both_extreme)$values]),
     numbers_of_extremes_runs_over_three = sum(rle(both_extreme)$lengths[rle(both_extreme)$values]>=3),
     numbers_of_extremes_runs_over_two = sum(rle(both_extreme)$lengths[rle(both_extreme)$values]>=2),
+    when_longest_run = date[cumsum(rle(both_extreme)$lengths)[(which(rle(both_extreme)$lengths==max(rle(both_extreme)$lengths[rle(both_extreme)$values]))[1]-1)]+1],
+    number_of_low_gen_days = sum(both_extreme),
+    extremes_non_isolated = sum((rle(both_extreme)$lengths[rle(both_extreme)$values])[(rle(both_extreme)$lengths[rle(both_extreme)$values]>=2)]),
     .groups="drop"
   )
 
+at_specific_date<-filter(daily_df,date=="2014-12-04") 
+
+couple_months<-filter(daily_df, (month(date) == 12 | month(date)==11) & year(date)==2014) %>% group_by(ID,latitude,longitude)
+
+anim<-ggplot(couple_months,aes(x=longitude,y=latitude,group=ID,size=solar_scaled_MWh_daily))+geom_point()+transition_time(date)+labs(title = "Date: {frame_time}")+ theme(legend.position="none")
+animate(anim,fps=5)
+
+ggplot(couple_months,aes(x=longitude,y=latitude,group=ID,size=wind_scaled_MWh_daily))+geom_point()
+
+ggplot(at_specific_date,aes(x=longitude,y=latitude,size=solar_scaled_MWh_daily))+geom_point()+
+  scale_color_viridis_b()
+
 ggplot(daily_extremes,aes(x=longitude,y=latitude,colour = longest_extreme_run,size=longest_extreme_run))+geom_point()+scale_color_viridis_b()
 
-ggplot(daily_extremes,aes(x=longitude,y=latitude,colour = numbers_of_extremes_runs_over_three,size=numbers_of_extremes_runs_over_three))+geom_point()+scale_color_viridis_b()
+ggplot(daily_extremes,aes(x=longitude,y=latitude,colour = extremes_non_isolated,size=extremes_non_isolated))+geom_point()+scale_color_viridis_b()
 
 ggplot(daily_extremes,aes(x=longitude,y=latitude,colour = numbers_of_extremes_runs_over_two,size=numbers_of_extremes_runs_over_two))+geom_point()+scale_color_viridis_b()
 
+ggplot(daily_extremes,aes(x=longitude,y=latitude,colour = longest_extreme_run,size=extremes_non_isolated))+geom_point()+scale_color_viridis_b()
 
 
 
