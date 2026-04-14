@@ -4,5 +4,5 @@ dataviz/
 *png
 *csv
 *.gif
-!root/2012-01-01.
-!root/animation.gif
+!docs/2012-01-01.
+!docs/animation.gif
