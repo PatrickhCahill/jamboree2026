@@ -1,9 +1,262 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <title>My Site</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hackathon team</title>
+    <style>
+      :root {
+        --bg: #f7f8fb;
+        --card: #ffffff;
+        --text: #1f2937;
+        --muted: #5b6472;
+        --border: #d9e1ec;
+        --accent: #1e3a8a;
+        --accent-soft: #e8eefc;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        line-height: 1.7;
+        color: var(--text);
+        background: linear-gradient(180deg, #f7f8fb 0%, #eef3f9 100%);
+      }
+
+      .container {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 48px 20px 64px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        color: var(--accent);
+        letter-spacing: 0.02em;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+
+      main {
+        display: grid;
+        gap: 20px;
+      }
+
+      section {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 24px;
+        box-shadow: 0 8px 24px rgba(31, 41, 55, 0.06);
+      }
+
+      h2 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 1.35rem;
+        color: var(--accent);
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 8px;
+      }
+
+      p {
+        margin: 0 0 12px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
+      }
+
+      li + li {
+        margin-top: 10px;
+      }
+
+      .figure-list li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .figure-list p {
+        font-size: 1.08rem;
+      }
+
+      .figure-link {
+        display: block;
+        width: fit-content;
+        margin: 8px auto 0;
+        text-decoration: none;
+      }
+
+      .figure-link:hover,
+      .figure-link:focus {
+        outline: none;
+      }
+
+      .figure-link:hover .figure-image,
+      .figure-link:focus .figure-image {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 28px rgba(31, 41, 55, 0.16);
+      }
+
+      .figure-image {
+        display: block;
+        width: min(100%, 320px);
+        margin: 0 auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        box-shadow: 0 10px 22px rgba(31, 41, 55, 0.1);
+        transition: transform 160ms ease, box-shadow 160ms ease;
+      }
+
+      .hero {
+        position: relative;
+        min-height: clamp(360px, 55vw, 520px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background-image:
+          url("2012-01-01.png");
+        background-size: cover;
+        background-position: center;
+        color: #ffffff;
+        box-shadow: 0 18px 40px rgba(31, 41, 55, 0.12);
+      }
+
+      .hero-content {
+        text-align: center;
+        padding: 36px 30px;
+        max-width: 820px;
+        backdrop-filter: blur(2px);
+      }
+
+      .hero-content h2 {
+        margin: 0 0 12px;
+        border: 0;
+        padding: 0;
+        color: #ffffff;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+      }
+
+      .hero-content p {
+        margin: 0;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.28);
+      }
+
+      footer {
+        margin-top: 24px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello from GitHub Pages 🚀</h1>
+    <div class="container">
+      <header>
+        <h1>Jamboree 2026</h1>
+        <p class="subtitle">MFC CDT Jamboree Hackathon.</p>
+      </header>
+
+      <main>
+
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-content">
+            <h2 id="hero-title">Visualisation the energy transition:</h2>
+            <p>Interactive plots to understand the powering of Europe with wind & sun.</p>
+          </div>
+        </section>
+
+        <section aria-labelledby="figures">
+          <h2 id="figures">Renewable Supply</h2>
+          <ul class="figure-list">
+            <li>
+              <p><strong>Figure 1:</strong> [Insert a brief description of the figure here.]</p>
+              <a class="figure-link" href="[Insert Plotly link here]" target="_blank" rel="noopener noreferrer">
+                <img
+                  class="figure-image"
+                  src="2012-01-01.png"
+                  alt="Preview image for Figure 1"
+                />
+              </a>
+            </li>
+            <li>
+              <p><strong>Figure 2:</strong> [Insert a brief description of the figure here.]</p>
+              <a class="figure-link" href="[Insert Plotly link here]" target="_blank" rel="noopener noreferrer">
+                <img
+                  class="figure-image"
+                  src="2012-01-01.png"
+                  alt="Preview image for Figure 2"
+                />
+              </a>
+            </li>
+            <li>
+              <p><strong>Figure 3:</strong> [Insert a brief description of the figure here.]</p>
+              <a class="figure-link" href="[Insert Plotly link here]" target="_blank" rel="noopener noreferrer">
+                <img
+                  class="figure-image"
+                  src="2012-01-01.png"
+                  alt="Preview image for Figure 3"
+                />
+              </a>
+            </li>
+          </ul>
+        </section>
+
+
+
+
+
+        <section aria-labelledby="authors">
+          <h2 id="authors">Authors</h2>
+          <p><strong>Will Allfrey</strong></p>
+          <p><strong>Holly Bennett</strong></p>
+          <p><strong>Patrick Cahill</strong></p>
+          <p><strong>Ariana Ferrotti</strong></p>
+          <p><strong>Libby Wilkinson</strong></p>
+        </section>
+
+
+
+        <section aria-labelledby="thanks">
+          <h2 id="thanks">Thanks!</h2>
+          <p>
+            Cheers to Barsha, Dan, Almuut for organising the Jamboree!
+          </p>
+          <p>
+            Thanks to Cumberland Lodge for having us!
+          </p>
+        </section>
+      </main>
+
+      <footer>
+        <p>&copy; 2026 Hackathon Team. All rights reserved.</p>
+      </footer>
+    </div>
   </body>
 </html>
