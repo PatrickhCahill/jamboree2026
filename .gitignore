@@ -4,3 +4,4 @@ dataviz/
 *png
 *csv
 *.gif
+!root/2012-01-01.png
