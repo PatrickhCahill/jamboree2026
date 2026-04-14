@@ -1,7 +1,6 @@
 dataset/
 venv/
 dataviz/
-*png
 *csv
 *.gif
 !docs/2012-01-01.png
